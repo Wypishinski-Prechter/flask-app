@@ -1,4 +1,5 @@
 from flask import Flask, render_template_string, jsonify
+import random
 
 app = Flask(__name__)
 
@@ -21,6 +22,7 @@ HTML_TEMPLATE = """
             font-family: 'Poppins', sans-serif;
             margin: 0;
             text-align: center;
+            transition: background 1s ease-in-out;
         }
 
         .container {
@@ -55,6 +57,9 @@ HTML_TEMPLATE = """
             border-radius: 25px;
             font-weight: bold;
             transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
         }
 
         .btn:hover {
@@ -73,12 +78,17 @@ HTML_TEMPLATE = """
     <div class="container">
         <h1 class="title">Hello, <span class="highlight">MSOE!</span></h1>
         <p class="subtitle">Welcome to the coolest Flask app.</p>
-        <a href="#" class="btn">Explore</a>
+        <button class="btn" onclick="changeBackground()">Explore</button>
     </div>
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("Welcome to the coolest Flask app!");
-        });
+        function changeBackground() {
+            alert("Get ready for something cool! 🎨");
+            const colors = ['#ff416c', '#ff4b2b', '#1e90ff', '#32cd32', '#ff1493', '#ffa500'];
+            document.body.style.background = "linear-gradient(135deg, " + 
+                colors[Math.floor(Math.random() * colors.length)] + ", " + 
+                colors[Math.floor(Math.random() * colors.length)] + ")";
+        }
     </script>
 </body>
 </html>
@@ -95,5 +105,5 @@ def health_check():
     return jsonify(status="healthy", message="App is running smoothly")
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=True)
 
